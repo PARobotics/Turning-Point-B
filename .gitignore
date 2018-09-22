@@ -1,3 +1,4 @@
 bin/
 .DS_STORE
 tags
+compile_commands.json

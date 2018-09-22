@@ -25,6 +25,14 @@
 // This prevents multiple inclusion, which isn't bad for this file but is good practice
 #define MAIN_H_
 
+//Define constants for wheels, motors, etc.
+
+//TODO: Update motor constants to actual channels! (They are currently set to dummy values)
+#define wheel_RF 1 //Right front wheel
+#define wheel_LF 2 //Left front wheel
+#define wheel_RB 3 //Right back wheel
+#define wheel_LB 4 //Left back wheel
+
 #include <API.h>
 
 // Allow usage of this file in C++ programs
