@@ -30,14 +30,14 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl() {
-	while (1) {
-		int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
+    while (1) {
+        int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
         if (V > -10 && V < 10) //Thresholded
             V = 0;
 
         int H = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
         if (H > -10 && H < 10) //Thresholded
-           H = 0; 
+           H = 0;
 
         /* Note: Still must test and check over the following code (from last year's work):
             motorSet(wheel_R2, min(127, max(-127, 1*(V-H))));
