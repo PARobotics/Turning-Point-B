@@ -33,6 +33,9 @@
 #define wheel_RB 3 //Right back wheel
 #define wheel_LB 4 //Left back wheel
 
+//TODO: Double check joystick slot!
+#define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2
+
 #include <API.h>
 
 // Allow usage of this file in C++ programs

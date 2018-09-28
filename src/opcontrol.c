@@ -31,6 +31,20 @@
  */
 void operatorControl() {
 	while (1) {
-		delay(20);
+		int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
+        if (V > -10 && V < 10) //Thresholded
+            V = 0;
+
+        int H = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
+        if (H > -10 && H < 10) //Thresholded
+           H = 0; 
+
+        /* Note: Still must test and check over the following code (from last year's work):
+            motorSet(wheel_R2, min(127, max(-127, 1*(V-H))));
+            motorSet(wheel_L2, min(127, max(-127,  V+H)));
+            motorSet(wheel_L1, min(127, max(-127, 1*(V+H))));
+            motorSet(wheel_R1, min(127, max(-127, V-H)));
+         */
+		delay(5);
 	}
 }
