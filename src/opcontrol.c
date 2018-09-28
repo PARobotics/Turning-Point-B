@@ -11,6 +11,7 @@
  */
 
 #include "main.h"
+#include "utility.h"
 
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -45,6 +46,6 @@ void operatorControl() {
             motorSet(wheel_L1, min(127, max(-127, 1*(V+H))));
             motorSet(wheel_R1, min(127, max(-127, V-H)));
          */
-		delay(5);
-	}
+        delay(5);
+    }
 }
