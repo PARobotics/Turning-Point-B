@@ -40,12 +40,12 @@ void operatorControl() {
         if (H > -10 && H < 10) //Thresholded
            H = 0;
 
-        /* Note: Still must test and check over the following code (from last year's work):
-            motorSet(wheel_R2, min(127, max(-127, 1*(V-H))));
-            motorSet(wheel_L2, min(127, max(-127,  V+H)));
-            motorSet(wheel_L1, min(127, max(-127, 1*(V+H))));
-            motorSet(wheel_R1, min(127, max(-127, V-H)));
-         */
+        motorSet(wheel_RF, min(127, max(-127, H-V)));
+        motorSet(wheel_RB, min(127, max(-127, H-V)));
+
+        motorSet(wheel_LF, min(127, max(-127, V+H)));
+        motorSet(wheel_LB, min(127, max(-127, V+H)));
+
         delay(5);
     }
 }
