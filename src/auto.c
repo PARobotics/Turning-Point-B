@@ -11,6 +11,8 @@
  */
 
 #include "main.h"
+#include "auto.h"
+#include "movement.h"
 
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
@@ -27,4 +29,37 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
+}
+
+void auton_move(double revs, direction d)
+{
+    int counts, terminate = 0;
+
+    switch (d) {
+      case FORWARD: move_full_forward(); break;
+      case BACKWARD: move_full_backward(); break;
+      case RIGHT: turn_full_right(); break;
+      case LEFT: turn_full_left(); break;
+      default:
+        /* TODO: Report a horrible error; no valid direction provided */
+        return;
+    }
+
+    while (!terminate) {
+      imeGet(LEFT_BACK_ENCODER, &counts);
+      if ((double)counts >= (revs * TICKS_PER_REV))
+        terminate = 1;
+    }
+
+    stop_all_motors();
+}
+
+void print_encoder_state()
+{
+    printf("Attempting to get encoder value!\n");
+    int left_back_counts = -1, right_back_counts = -1;
+    imeGet(LEFT_BACK_ENCODER, &left_back_counts);
+    imeGet(RIGHT_BACK_ENCODER, &right_back_counts);
+
+    printf("Left back encoder value: %d, right back encoder value: %d", left_back_counts, right_back_counts);
 }

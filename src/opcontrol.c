@@ -13,6 +13,9 @@
 #include "main.h"
 #include "utility.h"
 
+//TODO: REMOVE DEPENDENCY AFTER TESTING ENCODERS
+#include "auto.h"
+
 /*
  * Runs the user operator control code. This function will be started in its own task with the
  * default priority and stack size whenever the robot is enabled via the Field Management System
@@ -31,7 +34,14 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 void operatorControl() {
+    int counter = 0;
     while (1) {
+        //TODO: Remove encoder testing/counter in future
+        if (counter % 200) //Get encoder value about one time every second
+        {
+            print_encoder_state();
+        }
+
         int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
         if (V > -10 && V < 10) //Thresholded
             V = 0;
@@ -47,5 +57,6 @@ void operatorControl() {
         motorSet(wheel_LB, min(127, max(-127, V+H)));
 
         delay(5);
+        ++counter;
     }
 }

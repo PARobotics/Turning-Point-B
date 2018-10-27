@@ -36,6 +36,12 @@
 //TODO: Double check joystick slot!
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2
 
+#define LEFT_BACK_ENCODER wheel_LB
+#define RIGHT_BACK_ENCODER wheel_RB
+
+#define TICKS_PER_REV 392.0f
+#define IME_NUMBER 4 //Number of IMEs
+
 #include <API.h>
 
 // Allow usage of this file in C++ programs

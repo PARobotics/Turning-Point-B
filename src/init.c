@@ -37,4 +37,9 @@ void initializeIO() {
  * can be implemented in this task if desired.
  */
 void initialize() {
+    //Initialize integrated motor encoders
+    int IMECount = imeInitializeAll();
+    if(IMECount != IME_NUMBER){
+      printf("Cannot find all IMEs!\n");
+    }
 }
