@@ -44,7 +44,8 @@ void auton_move(double revs, direction d)
         /* TODO: Report a horrible error; no valid direction provided */
         return;
     }
-
+    
+    imeReset(LEFT_BACK_ENCODER);
     while (!terminate) {
       imeGet(LEFT_BACK_ENCODER, &counts);
       if ((double)counts >= (revs * TICKS_PER_REV))
