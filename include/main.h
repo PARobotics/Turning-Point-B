@@ -35,11 +35,14 @@
 #define L_bar 6
 #define lift_R 7
 #define lift_L 8
+#define lawnmower_bottom 9
+#define lawnmower_middle 10
+#define flywheel 11
 
 //TODO: experimentally find this value
 #define L_bar_ticks 98.0f
 #define L_bar_speed 90
-
+#define lawnmower_flywheel_speed 75
 
 //TODO: Double check joystick slot!
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2

@@ -42,4 +42,8 @@ void initialize() {
     if(IMECount != IME_NUMBER){
       printf("Cannot find all IMEs!\n");
     }
+
+    motorSet(flywheel, lawnmower_flywheel_speed);
+    motorSet(lawnmower_bottom, lawnmower_flywheel_speed);
+
 }

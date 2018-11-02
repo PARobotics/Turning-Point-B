@@ -64,6 +64,25 @@ void operatorControl() {
         motorSet(lift_L, min(127, max(-127, diff)));
 
 
+        // bail bottom lawnmower and flywheel
+        if(joystickGetDigital(1, 7, JOY_RIGHT)) {
+            motorSet(flywheel, lawnmower_flywheel_speed);
+            motorSet(lawnmower_bottom, lawnmower_flywheel_speed);
+        }
+
+        // control middle lawnmower (binary switch)
+        static int ml_on = 0;
+        if(joystickGetDigital(1, 7, JOY_LEFT)) {
+            if (ml_on) {
+                motorSet(lawnmower_middle, 0);
+                ml_on = 0;
+            } else {
+                motorSet(lawnmower_middle, lawnmower_flywheel_speed);
+                ml_on = 1;
+            }
+        }
+
+
         delay(5);
         ++counter;
     }
