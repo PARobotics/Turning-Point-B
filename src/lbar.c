@@ -13,12 +13,19 @@ void rotate_lbar()
 
     // Get IME tick count in the "counts" variable
     int counts;
+
+    imeReset(L_bar);
     imeGet(L_bar, &counts);
     motorSet(L_bar, L_bar_speed);
 
     while (counts < L_bar_ticks) {
-        imeGet(L_bar, &counts);
+        if(!imeGet(L_bar, &counts))
+        {
+            printf("Failed to get IME ticks!");
+            break;
+        }
     }
+
     motorSet(L_bar, 0);
     // Reset IME to zero
     imeReset(L_bar);
