@@ -32,6 +32,10 @@
 #define wheel_RB 3 //Right back wheel
 #define wheel_LF 4 //Left front wheel
 #define wheel_LB 5 //Left back wheel
+#define L_bar 6
+#define cascade_R 7
+#define cascade_L 8
+
 
 //TODO: Double check joystick slot!
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2
