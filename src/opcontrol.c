@@ -42,6 +42,8 @@ void operatorControl() {
             print_encoder_state();
         }
 
+
+        // drive train
         int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
         if (V > -10 && V < 10) //Thresholded
             V = 0;
@@ -55,6 +57,12 @@ void operatorControl() {
 
         motorSet(wheel_LF, min(127, max(-127, V+H)));
         motorSet(wheel_LB, min(127, max(-127, V+H)));
+
+        // lift
+        int diff = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
+        motorSet(lift_R, min(127, max(-127, diff)));
+        motorSet(lift_L, min(127, max(-127, diff)));
+
 
         delay(5);
         ++counter;
