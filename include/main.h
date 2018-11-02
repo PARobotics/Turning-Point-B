@@ -38,6 +38,8 @@
 
 //TODO: experimentally find this value
 #define L_bar_ticks 90
+#define L_bar_speed 90
+
 
 //TODO: Double check joystick slot!
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2

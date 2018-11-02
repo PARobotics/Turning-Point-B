@@ -14,8 +14,13 @@ void rotate_lbar()
     // Get IME tick count in the "counts" variable
     int counts;
     imeGet(L_bar, &counts);
+    motorSet(L_bar, L_bar_speed);
 
+    while (counts < L_bar_ticks) {
+        imeGet(L_bar, &counts);
+    }
+    motorSet(L_bar, 0);
     // Reset IME to zero
-    imeReset(IME_RIGHT_MOTOR);
+    imeReset(L_bar);
 
 }
