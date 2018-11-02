@@ -37,7 +37,7 @@
 #define lift_L 8
 
 //TODO: experimentally find this value
-#define L_bar_ticks 90
+#define L_bar_ticks 98.0f
 #define L_bar_speed 90
 
 
