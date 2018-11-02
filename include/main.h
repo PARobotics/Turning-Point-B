@@ -37,7 +37,7 @@
 #define lift_L 8
 
 //TODO: experimentally find this value
-#define L_bar_ticks 200
+#define L_bar_ticks 90
 
 //TODO: Double check joystick slot!
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2
