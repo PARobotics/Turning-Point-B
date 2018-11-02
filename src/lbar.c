@@ -5,12 +5,6 @@ void rotate_lbar()
 {
     //Flip lbar
 
-    static int is_flipped = 0;
-    if (!is_flipped)
-        is_flipped = 1;
-    else
-        is_flipped = 0;
-
     // Get IME tick count in the "counts" variable
     int counts;
 
@@ -27,7 +21,11 @@ void rotate_lbar()
     }
 
     motorSet(L_bar, 0);
-    // Reset IME to zero
     imeReset(L_bar);
 
+    static int is_flipped = 0;
+    if (!is_flipped)
+        is_flipped = 1;
+    else
+        is_flipped = 0;
 }
