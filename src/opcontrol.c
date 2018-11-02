@@ -37,7 +37,7 @@ void operatorControl() {
     int counter = 0;
     while (1) {
         //TODO: Remove encoder testing/counter in future
-        if (counter % 200) //Get encoder value about one time every second
+        if (counter % 200 == 0) //Get encoder value about one time every second
         {
             print_encoder_state();
         }
