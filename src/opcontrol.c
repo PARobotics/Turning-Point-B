@@ -11,6 +11,7 @@
  */
 
 #include "main.h"
+#include "lbar.h"
 #include "utility.h"
 
 //TODO: REMOVE DEPENDENCY AFTER TESTING ENCODERS
@@ -37,7 +38,7 @@ void operatorControl() {
     int counter = 0;
     while (1) {
         //TODO: Remove encoder testing/counter in future
-        if (counter % 200 == 0) //Get encoder value about one time every second
+        /*if (counter % 200 == 0) //Get encoder value about one time every second
         {
             print_encoder_state();
         }
@@ -58,10 +59,6 @@ void operatorControl() {
         motorSet(wheel_LF, min(127, max(-127, V+H)));
         motorSet(wheel_LB, min(127, max(-127, V+H)));
 
-        // lift
-        int diff = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
-        motorSet(lift_R, min(127, max(-127, diff)));
-        motorSet(lift_L, min(127, max(-127, diff)));
 
 
         // bail bottom lawnmower and flywheel
@@ -81,8 +78,27 @@ void operatorControl() {
                 ml_on = 1;
             }
         }
+*/
+        if(joystickGetDigital(1, 7, JOY_UP)) {
+            rotate_lbar();
+            delay(1000);
+        }
+        motorSet(L_bar, 0);
 
-
+        // lift
+        // int diff = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
+        // motorSet(lift_1, min(127, max(-127, diff)));
+        // motorSet(lift_2, min(127, max(-127, diff)));
+        // if(joystickGetDigital(1, 7, JOY_UP)) {
+        //     motorSet(lift_1, 100);
+        //     motorSet(lift_2, 100);
+        //     delay(50);
+        // }
+        // if(joystickGetDigital(1, 7, JOY_DOWN)) {
+        //     motorSet(lift_1, -100);
+        //     motorSet(lift_2, -100);
+        //     delay(500);
+        // }
         delay(5);
         ++counter;
     }

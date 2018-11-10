@@ -38,10 +38,13 @@ void initializeIO() {
  */
 void initialize() {
     //Initialize integrated motor encoders
-    int IMECount = imeInitializeAll();
-    if(IMECount != IME_NUMBER){
-      printf("Cannot find all IMEs!\n");
-    }
+    // int IMECount = imeInitializeAll();
+    // if(IMECount != IME_NUMBER){
+    //   printf("Cannot find all IMEs!\n");
+    // }
+    // else {
+    //    printf("IMEs initialized successfully");
+    // }
 
     motorSet(flywheel, lawnmower_flywheel_speed);
     motorSet(lawnmower_bottom, lawnmower_flywheel_speed);
