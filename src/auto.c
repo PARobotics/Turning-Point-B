@@ -31,7 +31,7 @@
 void autonomous() {
 }
 
-void auton_move(double revs, direction d)
+void auton_move_timers(int move_time, direction d)
 {
     int counts, terminate = 0;
 
@@ -44,7 +44,26 @@ void auton_move(double revs, direction d)
         /* TODO: Report a horrible error; no valid direction provided */
         return;
     }
-    
+
+    delay(move_time);
+
+    stop_all_motors();
+}
+
+void auton_move_encoders(double revs, direction d)
+{
+    int counts, terminate = 0;
+
+    switch (d) {
+      case FORWARD: move_full_forward(); break;
+      case BACKWARD: move_full_backward(); break;
+      case RIGHT: turn_full_right(); break;
+      case LEFT: turn_full_left(); break;
+      default:
+        /* TODO: Report a horrible error; no valid direction provided */
+        return;
+    }
+
     imeReset(LEFT_BACK_ENCODER);
     while (!terminate) {
       imeGet(LEFT_BACK_ENCODER, &counts);
