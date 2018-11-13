@@ -31,10 +31,8 @@
 void autonomous() {
 }
 
-void auton_move_timers(int move_time, direction d)
+void auton_move_timer(int move_time, direction d)
 {
-    int counts, terminate = 0;
-
     switch (d) {
       case FORWARD: move_full_forward(); break;
       case BACKWARD: move_full_backward(); break;
@@ -50,7 +48,7 @@ void auton_move_timers(int move_time, direction d)
     stop_all_motors();
 }
 
-void auton_move_encoders(double revs, direction d)
+void auton_move_encoder(double revs, direction d)
 {
     int counts, terminate = 0;
 
