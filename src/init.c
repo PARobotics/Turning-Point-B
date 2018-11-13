@@ -46,7 +46,7 @@ void initialize() {
     //    printf("IMEs initialized successfully");
     // }
 
-    motorSet(flywheel, lawnmower_flywheel_speed);
-    motorSet(lawnmower_bottom, lawnmower_flywheel_speed);
+    // motorSet(flywheel, lawnmower_flywheel_speed);
+    // motorSet(lawnmower_bottom, lawnmower_flywheel_speed);
 
 }

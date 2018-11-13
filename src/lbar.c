@@ -3,6 +3,8 @@
 
 void rotate_lbar()
 {
+    static int is_flipped = 0;
+
     //Flip lbar
 
     // Get IME tick count in the "counts" variable

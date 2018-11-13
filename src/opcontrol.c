@@ -11,6 +11,7 @@
  */
 
 #include "main.h"
+#include "opcontrol.h"
 #include "lbar.h"
 #include "utility.h"
 
@@ -37,30 +38,15 @@
 void operatorControl() {
     int counter = 0;
     while (1) {
+        /*
         //TODO: Remove encoder testing/counter in future
-        /*if (counter % 200 == 0) //Get encoder value about one time every second
+        if (counter % 200 == 0) //Get encoder value about one time every second
         {
             print_encoder_state();
         }
-
-
-        // drive train
-        int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
-        if (V > -10 && V < 10) //Thresholded
-            V = 0;
-
-        int H = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
-        if (H > -10 && H < 10) //Thresholded
-           H = 0;
-
-        motorSet(wheel_RF, min(127, max(-127, H-V)));
-        motorSet(wheel_RB, min(127, max(-127, H-V)));
-
-        motorSet(wheel_LF, min(127, max(-127, V+H)));
-        motorSet(wheel_LB, min(127, max(-127, V+H)));
-
-
-
+        */ 
+        drive_train_control();
+        /* 
         // bail bottom lawnmower and flywheel
         if(joystickGetDigital(1, 7, JOY_RIGHT)) {
             motorSet(flywheel, lawnmower_flywheel_speed);
@@ -78,28 +64,40 @@ void operatorControl() {
                 ml_on = 1;
             }
         }
-*/
+        */
+
         if(joystickGetDigital(1, 7, JOY_UP)) {
             rotate_lbar();
-            delay(1000);
         }
-        motorSet(L_bar, 0);
 
         // lift
         // int diff = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
         // motorSet(lift_1, min(127, max(-127, diff)));
         // motorSet(lift_2, min(127, max(-127, diff)));
-        // if(joystickGetDigital(1, 7, JOY_UP)) {
-        //     motorSet(lift_1, 100);
-        //     motorSet(lift_2, 100);
-        //     delay(50);
-        // }
-        // if(joystickGetDigital(1, 7, JOY_DOWN)) {
-        //     motorSet(lift_1, -100);
-        //     motorSet(lift_2, -100);
-        //     delay(500);
-        // }
-        delay(5);
+        
+        int lift_up = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
+        if (lift_up > -10 && lift_up < 10) //Thresholded
+          lift_up = 0;
+        motorSet(lift_1, lift_up);
+        motorSet(lift_2, lift_up);
+
         ++counter;
     }
+}
+
+void drive_train_control(void)
+{
+    int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
+    if (V > -10 && V < 10) //Thresholded
+        V = 0;
+
+    int H = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
+    if (H > -10 && H < 10) //Thresholded
+       H = 0;
+
+    motorSet(wheel_RF, min(127, max(-127, H-V)));
+    motorSet(wheel_RB, min(127, max(-127, H-V)));
+
+    motorSet(wheel_LF, min(127, max(-127, V+H)));
+    motorSet(wheel_LB, min(127, max(-127, V+H)));
 }
