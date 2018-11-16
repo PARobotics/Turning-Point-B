@@ -37,6 +37,9 @@
  */
 void operatorControl() {
     int counter = 0;
+    int lawn_on = 1; // should be turned on in init
+    int mid_on = 0;
+
     while (1) {
         /*
         //TODO: Remove encoder testing/counter in future
@@ -44,37 +47,39 @@ void operatorControl() {
         {
             print_encoder_state();
         }
-        */ 
-        drive_train_control();
-        /* 
-        // bail bottom lawnmower and flywheel
-        if(joystickGetDigital(1, 7, JOY_RIGHT)) {
-            motorSet(flywheel, lawnmower_flywheel_speed);
-            motorSet(lawnmower_bottom, lawnmower_flywheel_speed);
-        }
-
-        // control middle lawnmower (binary switch)
-        static int ml_on = 0;
-        if(joystickGetDigital(1, 7, JOY_LEFT)) {
-            if (ml_on) {
-                motorSet(lawnmower_middle, 0);
-                ml_on = 0;
-            } else {
-                motorSet(lawnmower_middle, lawnmower_flywheel_speed);
-                ml_on = 1;
-            }
-        }
         */
 
+        // DRIVE TRAIN
+        drive_train_control();
+
+        // BOTTOM LAWNMOWER AND FLYWHEEL (binary switch / bail button)
+        if(joystickGetDigital(1, 7, JOY_RIGHT)) {
+            if (lawn_on) { // initially on
+              motorSet(flywheel, 0);
+              motorSet(lawnmower_bottom, 0);
+            } else { // initially off
+                motorSet(flywheel, flywheel_speed);
+                motorSet(lawnmower_bottom, lawn_bottom_speed);
+            }
+            lawn_on = (lawn_on+1)%2; // flip condition
+        }
+
+        // MIDDLE LAWNMOWER (binary switch)
+        if(joystickGetDigital(1, 7, JOY_LEFT)) {
+            if (mid_on) {
+                motorSet(lawnmower_middle, 0);
+            } else {
+                motorSet(lawnmower_middle, lawn_mid_speed);
+            }
+            mid_on = (mid_on+1)%2;
+        }
+
+        // ROTATE LBAR
         if(joystickGetDigital(1, 7, JOY_UP)) {
             rotate_lbar();
         }
 
-        // lift
-        // int diff = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
-        // motorSet(lift_1, min(127, max(-127, diff)));
-        // motorSet(lift_2, min(127, max(-127, diff)));
-        
+        // OPERATE LIFT WITH LEFT JOYSTICK
         int lift_up = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
         if (lift_up > -10 && lift_up < 10) //Thresholded
           lift_up = 0;

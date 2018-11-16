@@ -32,17 +32,20 @@
 #define wheel_RB 3 //Right back wheel
 #define wheel_LF 4 //Left front wheel
 #define wheel_LB 5 //Left back wheel
-#define L_bar 7 // TODO: Change back to 6
-#define lift_1 8
-#define lift_2 9
-#define lawnmower_bottom 9
-#define lawnmower_middle 10
-#define flywheel 11
+#define L_bar 1
+#define lift_1 6
+#define lift_2 7
+#define lawnmower_bottom 8
+#define lawnmower_middle 9
+#define flywheel 10
 
 //TODO: experimentally find this value
 #define L_bar_ticks 908.0f
 #define L_bar_speed 90
-#define lawnmower_flywheel_speed 75
+#define flywheel_speed 75
+#define lawn_mid_speed 75
+#define lawn_bottom_speed 75
+
 
 //TODO: Double check joystick slot!
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2
