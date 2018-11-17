@@ -35,15 +35,52 @@
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
+
+ // void lbar_up(void * parameter) {
+ //   int press_up = 0;
+ //   while(true) {
+ //     if (!press_up) { // not pressed
+ //       if(joystickGetDigital(1, 7, JOY_UP)) { // pressed
+ //         motorSet(L_bar, -1*L_bar_speed);
+ //         press_up = 1;
+ //       }
+ //     } else { // pressed
+ //       if(!joystickGetDigital(1, 7, JOY_UP)) { // un-pressed
+ //         motorSet(L_bar, 0);
+ //         press_up = 0;
+ //       }
+ //     }
+ //   }
+ // }
+ //
+ // void lbar_down(void * parameter) {
+ //   int press_down = 0;
+ //   while(true) {
+ //     if (!press_down) { // not pressed
+ //       if(joystickGetDigital(1, 7, JOY_UP)) { // pressed
+ //         motorSet(L_bar, L_bar_speed/3);
+ //         press_down = 1;
+ //       }
+ //     } else { // pressed
+ //       if(!joystickGetDigital(1, 7, JOY_UP)) { // un-pressed
+ //         motorSet(L_bar, 0);
+ //         press_down = 0;
+ //       }
+ //     }
+ //   }
+ // }
+
 void operatorControl() {
     int counter = 0;
     int lawn_on = 1; // should be turned on in init
     int mid_on = 0;
+    int pr_down = 0;
+    int pr_up = 0;
 
     // TaskHandle lbar_up_task =
     //   taskCreate(lbar_up, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
     // TaskHandle lbar_down_task =
-    //   taskCreate(lbar_up, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+    //   taskCreate(lbar_down, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
     while (1) {
         /*
@@ -56,7 +93,6 @@ void operatorControl() {
 
         // DRIVE TRAIN
         drive_train_control();
-<<<<<<< HEAD
 
         // BOTTOM LAWNMOWER (toggle)
         if(joystickGetDigital(1, 7, JOY_LEFT)) {
@@ -78,16 +114,43 @@ void operatorControl() {
         }
 
         // ROTATE LBAR
-        if(joystickGetDigital(1, 7, JOY_UP)) {
+        // if(joystickGetDigital(1, 7, JOY_UP)) {
+        //     motorSet(L_bar, -1*L_bar_speed);
+        //     //delay(L_bar_time);
+        //     motorSet(L_bar, 0);
+        // }
+        //
+        // if(joystickGetDigital(1, 7, JOY_DOWN)) {
+        //     motorSet(L_bar, L_bar_speed/3);
+        //     //delay(L_bar_time/2);
+        //     motorSet(L_bar, 0);
+        // }
+
+
+        // LBAR UP
+        if (!pr_up) { // not pressed
+          if(joystickGetDigital(1, 7, JOY_UP)) { // pressed
             motorSet(L_bar, -1*L_bar_speed);
-            //delay(L_bar_time);
+            pr_up = 1;
+          }
+        } else { // pressed
+          if(!joystickGetDigital(1, 7, JOY_UP)) { // un-pressed
             motorSet(L_bar, 0);
+            pr_up = 0;
+          }
         }
 
-        if(joystickGetDigital(1, 7, JOY_DOWN)) {
+        // LBAR DOWN
+        if (!pr_down) { // not pressed
+          if(joystickGetDigital(1, 7, JOY_DOWN)) { // pressed
             motorSet(L_bar, L_bar_speed/3);
-            //delay(L_bar_time/2);
+            pr_down = 1;
+          }
+        } else { // pressed
+          if(!joystickGetDigital(1, 7, JOY_DOWN)) { // un-pressed
             motorSet(L_bar, 0);
+            pr_down = 0;
+          }
         }
 
         // OPERATE LIFT WITH LEFT JOYSTICK
