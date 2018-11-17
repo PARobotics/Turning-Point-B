@@ -28,6 +28,7 @@
 //Define constants for wheels, motors, etc.
 
 //TODO: Update motor constants to actual channels! (They are currently set to dummy values)
+<<<<<<< HEAD
 #define wheel_RF 3 //Right front wheel
 #define wheel_RB 2 //Right back wheel
 #define wheel_LF 5 //Left front wheel
@@ -45,6 +46,25 @@
 #define flywheel_speed 75
 #define lawn_mid_speed 75
 #define lawn_bottom_speed 115
+=======
+#define wheel_RF 2 //Right front wheel
+#define wheel_RB 3 //Right back wheel
+#define wheel_LF 4 //Left front wheel
+#define wheel_LB 5 //Left back wheel
+#define L_bar 1
+#define lift_1 6
+#define lift_2 7
+#define lawnmower_bottom 8
+#define lawnmower_middle 9
+#define flywheel 10
+
+//TODO: experimentally find this value
+#define L_bar_ticks 908.0f
+#define L_bar_speed 90
+#define flywheel_speed 75
+#define lawn_mid_speed 75
+#define lawn_bottom_speed 75
+>>>>>>> df0b9c3ff5a843aa693925a6a83dd912cc0f0384
 
 
 //TODO: Double check joystick slot!
