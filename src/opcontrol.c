@@ -40,15 +40,11 @@ void operatorControl() {
     int lawn_on = 1; // should be turned on in init
     int mid_on = 0;
 
-<<<<<<< HEAD
     // TaskHandle lbar_up_task =
     //   taskCreate(lbar_up, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
     // TaskHandle lbar_down_task =
     //   taskCreate(lbar_up, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
-
-=======
->>>>>>> df0b9c3ff5a843aa693925a6a83dd912cc0f0384
     while (1) {
         /*
         //TODO: Remove encoder testing/counter in future
@@ -79,29 +75,6 @@ void operatorControl() {
             delay(5000);
             motorSet(lawnmower_middle, 0);
             motorSet(flywheel, 0);
-=======
-
-        // BOTTOM LAWNMOWER AND FLYWHEEL (binary switch / bail button)
-        if(joystickGetDigital(1, 7, JOY_RIGHT)) {
-            if (lawn_on) { // initially on
-              motorSet(flywheel, 0);
-              motorSet(lawnmower_bottom, 0);
-            } else { // initially off
-                motorSet(flywheel, flywheel_speed);
-                motorSet(lawnmower_bottom, lawn_bottom_speed);
-            }
-            lawn_on = (lawn_on+1)%2; // flip condition
-        }
-
-        // MIDDLE LAWNMOWER (binary switch)
-        if(joystickGetDigital(1, 7, JOY_LEFT)) {
-            if (mid_on) {
-                motorSet(lawnmower_middle, 0);
-            } else {
-                motorSet(lawnmower_middle, lawn_mid_speed);
-            }
-            mid_on = (mid_on+1)%2;
->>>>>>> df0b9c3ff5a843aa693925a6a83dd912cc0f0384
         }
 
         // ROTATE LBAR
