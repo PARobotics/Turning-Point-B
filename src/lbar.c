@@ -3,7 +3,7 @@
 
 void rotate_lbar()
 {
-    static int is_flipped = 0;
+    static int is_flipped = 1;
 
     //Flip lbar
 
@@ -25,14 +25,14 @@ void rotate_lbar()
     // }
     // imeReset(L_bar);
 
-    if (!is_flipped) {
-        motorSet(L_bar, L_bar_speed);
-        is_flipped = 1;
-    } else {
-        motorSet(L_bar, -1*L_bar_speed);
-        is_flipped = 0;
-    }
-
-    delay(lbar_time);
-    motorSet(L_bar, 0);
+    // if (!is_flipped) {
+    //     motorSet(L_bar, L_bar_speed);
+    //     is_flipped = 1;
+    // } else {
+    //     motorSet(L_bar, -1*L_bar_speed);
+    //     is_flipped = 0;
+    // }
+    //
+    // delay(lbar_time);
+    // motorSet(L_bar, 0);
 }

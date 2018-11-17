@@ -37,6 +37,15 @@
  */
 void operatorControl() {
     int counter = 0;
+    int lawn_on = 1; // should be turned on in init
+    int mid_on = 0;
+
+    // TaskHandle lbar_up_task =
+    //   taskCreate(lbar_up, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+    // TaskHandle lbar_down_task =
+    //   taskCreate(lbar_up, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+
+
     while (1) {
         /*
         //TODO: Remove encoder testing/counter in future
@@ -44,41 +53,48 @@ void operatorControl() {
         {
             print_encoder_state();
         }
-        */ 
-        drive_train_control();
-        /* 
-        // bail bottom lawnmower and flywheel
-        if(joystickGetDigital(1, 7, JOY_RIGHT)) {
-            motorSet(flywheel, lawnmower_flywheel_speed);
-            motorSet(lawnmower_bottom, lawnmower_flywheel_speed);
-        }
-
-        // control middle lawnmower (binary switch)
-        static int ml_on = 0;
-        if(joystickGetDigital(1, 7, JOY_LEFT)) {
-            if (ml_on) {
-                motorSet(lawnmower_middle, 0);
-                ml_on = 0;
-            } else {
-                motorSet(lawnmower_middle, lawnmower_flywheel_speed);
-                ml_on = 1;
-            }
-        }
         */
 
-        if(joystickGetDigital(1, 7, JOY_UP)) {
-            rotate_lbar();
+        // DRIVE TRAIN
+        drive_train_control();
+
+        // BOTTOM LAWNMOWER (toggle)
+        if(joystickGetDigital(1, 7, JOY_LEFT)) {
+            if (lawn_on) { // initially on
+              motorSet(lawnmower_bottom, 0);
+            } else { // initially off
+                motorSet(lawnmower_bottom, lawn_bottom_speed);
+            }
+            lawn_on = (lawn_on+1)%2; // flip condition
         }
 
-        // lift
-        // int diff = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
-        // motorSet(lift_1, min(127, max(-127, diff)));
-        // motorSet(lift_2, min(127, max(-127, diff)));
-        
+        // MIDDLE LAWNMOWER AND FLYWHEEL
+        if(joystickGetDigital(1, 7, JOY_RIGHT)) {
+            motorSet(flywheel, flywheel_speed);
+            motorSet(lawnmower_middle, lawn_mid_speed);
+            delay(5000);
+            motorSet(lawnmower_middle, 0);
+            motorSet(flywheel, 0);
+        }
+
+        // ROTATE LBAR
+        if(joystickGetDigital(1, 7, JOY_UP)) {
+            motorSet(L_bar, -1*L_bar_speed);
+            //delay(L_bar_time);
+            motorSet(L_bar, 0);
+        }
+
+        if(joystickGetDigital(1, 7, JOY_DOWN)) {
+            motorSet(L_bar, L_bar_speed/3);
+            //delay(L_bar_time/2);
+            motorSet(L_bar, 0);
+        }
+
+        // OPERATE LIFT WITH LEFT JOYSTICK
         int lift_up = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
         if (lift_up > -10 && lift_up < 10) //Thresholded
           lift_up = 0;
-        motorSet(lift_1, lift_up);
+        motorSet(lift_1, -1*lift_up);
         motorSet(lift_2, lift_up);
 
         ++counter;
@@ -95,9 +111,9 @@ void drive_train_control(void)
     if (H > -10 && H < 10) //Thresholded
        H = 0;
 
-    motorSet(wheel_RF, min(127, max(-127, H-V)));
-    motorSet(wheel_RB, min(127, max(-127, H-V)));
+    motorSet(wheel_RF, min(127, max(-127, 1*(H-V))));
+    motorSet(wheel_RB, min(127, max(-127, 1*(H-V))));
 
-    motorSet(wheel_LF, min(127, max(-127, V+H)));
-    motorSet(wheel_LB, min(127, max(-127, V+H)));
+    motorSet(wheel_LF, min(127, max(-127, 1*(V+H))));
+    motorSet(wheel_LB, min(127, max(-127, 1*(V+H))));
 }
