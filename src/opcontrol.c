@@ -11,8 +11,8 @@
  */
 
 #include "main.h"
+#include "auto.h"
 #include "opcontrol.h"
-#include "lbar.h"
 #include "utility.h"
 
 //TODO: REMOVE DEPENDENCY AFTER TESTING ENCODERS
@@ -36,51 +36,12 @@
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 
- // void lbar_up(void * parameter) {
- //   int press_up = 0;
- //   while(true) {
- //     if (!press_up) { // not pressed
- //       if(joystickGetDigital(1, 7, JOY_UP)) { // pressed
- //         motorSet(L_bar, -1*L_bar_speed);
- //         press_up = 1;
- //       }
- //     } else { // pressed
- //       if(!joystickGetDigital(1, 7, JOY_UP)) { // un-pressed
- //         motorSet(L_bar, 0);
- //         press_up = 0;
- //       }
- //     }
- //   }
- // }
- //
- // void lbar_down(void * parameter) {
- //   int press_down = 0;
- //   while(true) {
- //     if (!press_down) { // not pressed
- //       if(joystickGetDigital(1, 7, JOY_UP)) { // pressed
- //         motorSet(L_bar, L_bar_speed/3);
- //         press_down = 1;
- //       }
- //     } else { // pressed
- //       if(!joystickGetDigital(1, 7, JOY_UP)) { // un-pressed
- //         motorSet(L_bar, 0);
- //         press_down = 0;
- //       }
- //     }
- //   }
- // }
 
 void operatorControl() {
     int counter = 0;
-    int lawn_on = 1; // should be turned on in init
-    int mid_on = 0;
+    int lawn_on = 0; // should be turned on in init
     int pr_down = 0;
     int pr_up = 0;
-
-    // TaskHandle lbar_up_task =
-    //   taskCreate(lbar_up, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
-    // TaskHandle lbar_down_task =
-    //   taskCreate(lbar_down, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 
     while (1) {
         /*
@@ -91,25 +52,30 @@ void operatorControl() {
         }
         */
 
+        // BUTTON TO TEST AUTONOMOUS
+        if(joystickGetDigital(1, 7, JOY_UP)) {
+          // autonomous();
+        }
+
         // DRIVE TRAIN
         drive_train_control();
 
         // BOTTOM LAWNMOWER (toggle)
-        if(joystickGetDigital(1, 7, JOY_LEFT)) {
-            if (lawn_on) { // initially on
+        if(joystickGetDigital(1, 8, JOY_LEFT)) {
+            if (lawn_on) {
               motorSet(lawnmower_bottom, 0);
-            } else { // initially off
-                motorSet(lawnmower_bottom, lawn_bottom_speed);
+            } else {
+              motorSet(lawnmower_bottom, lawn_bottom_speed);
             }
             lawn_on = (lawn_on+1)%2; // flip condition
         }
 
         // MIDDLE LAWNMOWER AND FLYWHEEL
-        if(joystickGetDigital(1, 7, JOY_RIGHT)) {
+        if(joystickGetDigital(1, 8, JOY_RIGHT)) {
             motorSet(flywheel, flywheel_speed);
-            motorSet(lawnmower_middle, lawn_mid_speed);
-            delay(5000);
-            motorSet(lawnmower_middle, 0);
+            // motorSet(lawnmower_middle, lawn_mid_speed);
+            delay(lawn_mid_and_flywheel_time);
+            // motorSet(lawnmower_middle, 0);
             motorSet(flywheel, 0);
         }
 
@@ -129,12 +95,12 @@ void operatorControl() {
 
         // LBAR UP
         if (!pr_up) { // not pressed
-          if(joystickGetDigital(1, 7, JOY_UP)) { // pressed
-            motorSet(L_bar, -1*L_bar_speed);
+          if(joystickGetDigital(1, 8, JOY_UP)) { // pressed
+            motorSet(L_bar, -1*(L_bar_up_speed));
             pr_up = 1;
           }
         } else { // pressed
-          if(!joystickGetDigital(1, 7, JOY_UP)) { // un-pressed
+          if(!joystickGetDigital(1, 8, JOY_UP)) { // un-pressed
             motorSet(L_bar, 0);
             pr_up = 0;
           }
@@ -142,8 +108,8 @@ void operatorControl() {
 
         // LBAR DOWN
         if (!pr_down) { // not pressed
-          if(joystickGetDigital(1, 7, JOY_DOWN)) { // pressed
-            motorSet(L_bar, L_bar_speed/3);
+          if(joystickGetDigital(1, 8, JOY_DOWN)) { // pressed
+            motorSet(L_bar, L_bar_down_speed);
             pr_down = 1;
           }
         } else { // pressed
@@ -154,11 +120,11 @@ void operatorControl() {
         }
 
         // OPERATE LIFT WITH LEFT JOYSTICK
-        int lift_up = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
+        int lift_up = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
         if (lift_up > -10 && lift_up < 10) //Thresholded
           lift_up = 0;
         motorSet(lift_1, -1*lift_up);
-        motorSet(lift_2, lift_up);
+        motorSet(lift_2, -1*lift_up);
 
         ++counter;
     }
@@ -166,11 +132,11 @@ void operatorControl() {
 
 void drive_train_control(void)
 {
-    int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
+    int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
     if (V > -10 && V < 10) //Thresholded
         V = 0;
 
-    int H = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 1);
+    int H = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 4);
     if (H > -10 && H < 10) //Thresholded
        H = 0;
 

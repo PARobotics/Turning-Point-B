@@ -29,6 +29,30 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
+  // auton_move_timer(, FORWARD);
+  // auton_move_timer(, RIGHT);
+  // auton_move_timer(2000, FORWARD);
+
+  for (int i = 0; i < 2; ++i)
+  {
+    delay(1000);
+    motorSet(L_bar, -1*(L_bar_up_speed));
+    delay(1000);
+    motorSet(L_bar, 0);
+    delay(1000);
+
+    motorSet(L_bar, L_bar_down_speed);
+    delay(2000);
+    motorSet(L_bar, 0);
+  }
+
+  delay(1000);
+  auton_move_timer(1500, FORWARD);
+  stop_all_motors();
+  delay(500);
+  auton_move_timer(1500, BACKWARD);
+
+  // auton_move_timer(1000, LEFT);
 }
 
 void auton_move_timer(int move_time, direction d)
