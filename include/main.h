@@ -32,8 +32,10 @@
 #define wheel_LF 4 //Left front wheel
 #define wheel_LB 5 //Left back wheel
 #define L_bar 6
-#define lift_1 1
-#define lift_2 10
+#define lift_rtop 6
+#define lift_rbottom 7
+#define lift_ltop 8
+#define lift_lbottom 9
 #define lawnmower_bottom 8
 #define flywheel 9
 
