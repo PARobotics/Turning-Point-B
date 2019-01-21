@@ -31,21 +31,15 @@
 #define wheel_RB 3 //Right back wheel
 #define wheel_LF 4 //Left front wheel
 #define wheel_LB 5 //Left back wheel
-#define L_bar 6
+#define L_bar 1
 #define lift_rtop 6
 #define lift_rbottom 7
 #define lift_ltop 8
 #define lift_lbottom 9
-#define lawnmower_bottom 8
-#define flywheel 9
 
 #define L_bar_up_speed 90
 #define L_bar_down_speed 100
 #define L_bar_time 1000
-#define flywheel_speed 115
-#define lawn_mid_speed 100
-#define lawn_bottom_speed 115
-#define lawn_mid_and_flywheel_time 5000
 
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2
 

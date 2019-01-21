@@ -29,6 +29,7 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
+  /*
   // auton_move_timer(, FORWARD);
   // auton_move_timer(, RIGHT);
   // auton_move_timer(2000, FORWARD);
@@ -53,6 +54,7 @@ void autonomous() {
   auton_move_timer(1500, BACKWARD);
 
   // auton_move_timer(1000, LEFT);
+  */
 }
 
 void auton_move_timer(int move_time, direction d)

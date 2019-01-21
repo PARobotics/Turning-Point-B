@@ -125,6 +125,6 @@ void drive_train_control(void)
     motorSet(wheel_RF, min(127, max(-127, 1*(H-V))));
     motorSet(wheel_RB, min(127, max(-127, 1*(H-V))));
 
-    motorSet(wheel_LF, min(127, max(-127, 1*(V+H))));
-    motorSet(wheel_LB, min(127, max(-127, 1*(V+H))));
+    motorSet(wheel_LF, min(127, max(-127, -1*(V+H))));
+    motorSet(wheel_LB, min(127, max(-127, -1*(V+H))));
 }
