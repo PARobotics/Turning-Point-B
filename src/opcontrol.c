@@ -41,7 +41,7 @@ void operatorControl() {
     int counter = 0;
     int pr_down = 0;
     int pr_up = 0;
-
+    int holding = 0;
     while (1) {
         /*
         //TODO: Remove encoder testing/counter in future
@@ -56,7 +56,7 @@ void operatorControl() {
           // autonomous();
         }
 
-        // DRIVE TRAIN
+        // DRIVE TRAIN (left joystick)
         drive_train_control();
 
         // ROTATE LBAR
@@ -73,6 +73,23 @@ void operatorControl() {
         // }
 
 
+        // holding voltage
+        if (holding) { // if already on
+          if(joystickGetDigital(1, 7, JOY_UP)) { // if button pressed
+            // do nothing
+          } else { // if un-pressed
+            holding = 0;
+            motorSet(L_bar, 0);
+          }
+        } else { // if not already on
+          if(joystickGetDigital(1, 7, JOY_UP)) { // if button pressed
+            holding = 1;
+            motorSet(L_bar, -1*L_bar_holding_speed);
+          } else { // if un-pressed
+            // do nothing
+          }
+        }
+
         // LBAR UP
         if (!pr_up) { // not pressed
           if(joystickGetDigital(1, 8, JOY_UP)) { // pressed
@@ -81,11 +98,11 @@ void operatorControl() {
           }
         } else { // pressed
           if(!joystickGetDigital(1, 8, JOY_UP)) { // un-pressed
-            motorSet(L_bar, 0);
+            // motorSet(L_bar, 0);
+            motorSet(L_bar, -1*(L_bar_holding_speed));
             pr_up = 0;
           }
         }
-
         // LBAR DOWN
         if (!pr_down) { // not pressed
           if(joystickGetDigital(1, 8, JOY_DOWN)) { // pressed
@@ -99,10 +116,12 @@ void operatorControl() {
           }
         }
 
-        // OPERATE LIFT WITH LEFT JOYSTICK
+        // OPERATE LIFT WITH RIGHT JOYSTICK
         int lift_up = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 2);
         if (lift_up > -10 && lift_up < 10) //Thresholded
           lift_up = 0;
+        lift_up = -1*lift_up; // toggle up and down
+
         motorSet(lift_rtop, lift_up);
         motorSet(lift_rbottom, lift_up);
         motorSet(lift_ltop, lift_up);
@@ -117,11 +136,12 @@ void drive_train_control(void)
     int V = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 3);
     if (V > -10 && V < 10) //Thresholded
         V = 0;
+    V=-1*V;
 
     int H = joystickGetAnalog(MOVE_JOYSTICK_SLOT, 4);
     if (H > -10 && H < 10) //Thresholded
        H = 0;
-
+    H=-1*H;
     motorSet(wheel_RF, min(127, max(-127, 1*(H-V))));
     motorSet(wheel_RB, min(127, max(-127, 1*(H-V))));
 

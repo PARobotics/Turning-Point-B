@@ -37,8 +37,9 @@
 #define lift_ltop 8
 #define lift_lbottom 9
 
-#define L_bar_up_speed 90
-#define L_bar_down_speed 100
+#define L_bar_holding_speed 20
+#define L_bar_up_speed 127
+#define L_bar_down_speed 110
 #define L_bar_time 1000
 
 #define MOVE_JOYSTICK_SLOT 1 //Either 1 or 2
