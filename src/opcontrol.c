@@ -80,11 +80,14 @@ void operatorControl() {
           } else { // if un-pressed
             holding = 0;
             motorSet(L_bar, 0);
+            motorSet(L_bar2, 0);
           }
         } else { // if not already on
           if(joystickGetDigital(1, 7, JOY_UP)) { // if button pressed
             holding = 1;
             motorSet(L_bar, -1*L_bar_holding_speed);
+            motorSet(L_bar2, -1*L_bar_holding_speed);
+
           } else { // if un-pressed
             // do nothing
           }
@@ -94,12 +97,16 @@ void operatorControl() {
         if (!pr_up) { // not pressed
           if(joystickGetDigital(1, 8, JOY_UP)) { // pressed
             motorSet(L_bar, -1*(L_bar_up_speed));
+            motorSet(L_bar2, -1*(L_bar_up_speed));
+
             pr_up = 1;
           }
         } else { // pressed
           if(!joystickGetDigital(1, 8, JOY_UP)) { // un-pressed
             // motorSet(L_bar, 0);
             motorSet(L_bar, -1*(L_bar_holding_speed));
+            motorSet(L_bar2, -1*(L_bar_up_speed));
+
             pr_up = 0;
           }
         }
@@ -107,11 +114,13 @@ void operatorControl() {
         if (!pr_down) { // not pressed
           if(joystickGetDigital(1, 8, JOY_DOWN)) { // pressed
             motorSet(L_bar, L_bar_down_speed);
+              motorSet(L_bar2, L_bar_down_speed);
             pr_down = 1;
           }
         } else { // pressed
           if(!joystickGetDigital(1, 7, JOY_DOWN)) { // un-pressed
             motorSet(L_bar, 0);
+            motorSet(L_bar2, 0);
             pr_down = 0;
           }
         }

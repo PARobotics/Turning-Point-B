@@ -32,6 +32,7 @@
 #define wheel_LF 4 //Left front wheel
 #define wheel_LB 5 //Left back wheel
 #define L_bar 1
+#define L_bar2 10
 #define lift_rtop 6
 #define lift_rbottom 7
 #define lift_ltop 8
