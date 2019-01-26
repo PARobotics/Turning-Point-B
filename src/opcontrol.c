@@ -151,7 +151,7 @@ void drive_train_control(void)
     if (H > -10 && H < 10) //Thresholded
        H = 0;
     H=-1*H;
-    H=turn_scale*H; // TODO: see if this is effective
+    H=turn_scale*H; // TODO: see if this is effective, adjust turn_scale value
     motorSet(wheel_RF, min(127, max(-127, 1*(H-V))));
     motorSet(wheel_RB, min(127, max(-127, 1*(H-V))));
 
