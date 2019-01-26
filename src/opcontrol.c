@@ -74,24 +74,24 @@ void operatorControl() {
 
 
         // holding voltage
-        if (holding) { // if already on
-          if(joystickGetDigital(1, 7, JOY_UP)) { // if button pressed
-            // do nothing
-          } else { // if un-pressed
-            holding = 0;
-            motorSet(L_bar, 0);
-            motorSet(L_bar2, 0);
-          }
-        } else { // if not already on
-          if(joystickGetDigital(1, 7, JOY_UP)) { // if button pressed
-            holding = 1;
-            motorSet(L_bar, -1*L_bar_holding_speed);
-            motorSet(L_bar2, -1*L_bar_holding_speed);
-
-          } else { // if un-pressed
-            // do nothing
-          }
-        }
+        // if (holding) { // if already on
+        //   if(joystickGetDigital(1, 7, JOY_UP)) { // if button pressed
+        //     // do nothing
+        //   } else { // if un-pressed
+        //     holding = 0;
+        //     motorSet(L_bar, 0);
+        //     motorSet(L_bar2, 0);
+        //   }
+        // } else { // if not already on
+        //   if(joystickGetDigital(1, 7, JOY_UP)) { // if button pressed
+        //     holding = 1;
+        //     motorSet(L_bar, -1*L_bar_holding_speed);
+        //     motorSet(L_bar2, -1*L_bar_holding_speed);
+        //
+        //   } else { // if un-pressed
+        //     // do nothing
+        //   }
+        // }
 
         // LBAR UP
         if (!pr_up) { // not pressed
@@ -103,7 +103,7 @@ void operatorControl() {
           }
         } else { // pressed
           if(!joystickGetDigital(1, 8, JOY_UP)) { // un-pressed
-            // motorSet(L_bar, 0);
+            motorSet(L_bar, 0);
             motorSet(L_bar, -1*(L_bar_holding_speed));
             motorSet(L_bar2, -1*(L_bar_up_speed));
 
@@ -114,7 +114,7 @@ void operatorControl() {
         if (!pr_down) { // not pressed
           if(joystickGetDigital(1, 8, JOY_DOWN)) { // pressed
             motorSet(L_bar, L_bar_down_speed);
-              motorSet(L_bar2, L_bar_down_speed);
+            motorSet(L_bar2, L_bar_down_speed);
             pr_down = 1;
           }
         } else { // pressed
