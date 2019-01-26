@@ -51,9 +51,9 @@ void operatorControl() {
         }
         */
 
-        // BUTTON TO TEST AUTONOMOUS
-        if(joystickGetDigital(1, 7, JOY_UP)) {
-          // autonomous();
+        // BUTTON TO TEST AUTONOMOUS and put down the prongs
+        if(joystickGetDigital(1, 7, JOY_LEFT)) {
+          autonomous();
         }
 
         // DRIVE TRAIN (left joystick)
@@ -103,7 +103,6 @@ void operatorControl() {
           }
         } else { // pressed
           if(!joystickGetDigital(1, 8, JOY_UP)) { // un-pressed
-            motorSet(L_bar, 0);
             motorSet(L_bar, -1*(L_bar_holding_speed));
             motorSet(L_bar2, -1*(L_bar_up_speed));
 
