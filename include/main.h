@@ -26,6 +26,7 @@
 #define MAIN_H_
 
 //Define constants for wheels, motors, etc.
+#define turn_scale 0.75 // scale turning sensitivity
 
 #define wheel_RF 2 //Right front wheel
 #define wheel_RB 3 //Right back wheel
